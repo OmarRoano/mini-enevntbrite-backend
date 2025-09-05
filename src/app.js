@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import routes from './routes/index.js';
 import { env } from './config/env.js';
 import { errorHandler, notFoundHandler } from './middlewares/error.js';
+import events from './routes/event.routes.js';
 
 export function buildApp() {
   const app = express();
@@ -17,6 +18,7 @@ export function buildApp() {
 
   app.get('/health', (_req, res) => res.json({ ok: true }));
   app.use('/api', routes);
+  app.use('/events', events);
   app.use(notFoundHandler);
   app.use(errorHandler);
   return app;
